@@ -1,6 +1,8 @@
-# Specify Test 1
+# fullstack-template
 
 A modern full-stack web monorepo demonstrating enterprise-grade development practices and architectural patterns for building scalable, maintainable web applications.
+
+This is an experiement using Spec Driven Development to build applications with agentic coding.
 
 ## 🚀 Overview
 

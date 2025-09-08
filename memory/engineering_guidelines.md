@@ -42,9 +42,15 @@ This guide defines coding standards and engineering practices for the TypeScript
 - Validate all request/response bodies with Zod at the server edge.
 - SSE: set proper headers (`text/event-stream`, no-cache, keep-alive) and heartbeat comments. On the client, use `EventSource` with reconnect/backoff.
 
+### Backend service: Express
+- Build backend HTTP APIs using Express. Structure routes by domain and mount under a versioned base path.
+- Use centralized error handling with `@hapi/boom` and map to standardized problem+json responses.
+- Register OpenAPI-derived request/response validators at route boundaries.
+- Serve Swagger UI from Express using the generated OpenAPI document for manual testing and exploration.
+
 ### Architectural Decision: Frontend proxies all API requests (no client-side CORS)
 - All browser requests must target relative endpoints under `/api/*` in the Next.js app; clients must not call external origins directly.
-- Implement proxying with Next.js Route Handlers under `app/api/*` that forward to backend services using server-side `fetch`.
+- Implement proxying with Next.js Route Handlers under `app/api/*` that forward to Express backend services using server-side `fetch`.
 - Forward and sanitize headers: include `Authorization`, cookies, correlation IDs; add/propagate `X-Request-ID`.
 - Treat the proxy as the ingress boundary: do not enable public wildcard CORS on backend services; enforce origin/method allowlists at the proxy when needed.
 - SSE proxying: set `Content-Type: text/event-stream`, disable buffering, stream chunks as-is, send heartbeat comments, and abort upstream on client disconnect.
@@ -54,7 +60,7 @@ This guide defines coding standards and engineering practices for the TypeScript
 ## Testing Strategy
 - Unit: Vitest for pure logic; aim for ≥80% coverage on units.
 - Component: Testing Library with jest-dom matchers; avoid snapshot-only tests.
-- Integration: test Route Handlers and server logic with supertest/fetch; MSW for mocking upstreams.
+- Integration: test Express routes and server logic with supertest/fetch; MSW for mocking upstreams.
 - E2E: Playwright on critical flows; run against production-like builds.
 - Accessibility: axe checks on key components/routes.
 

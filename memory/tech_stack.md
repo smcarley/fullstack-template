@@ -19,11 +19,12 @@ This document defines the concrete technologies chosen for our monorepo. The con
 - **SSE client**: native `EventSource` in browsers; server parsing via `eventsource-parser` when needed
 
 ## Backend/APIs
-- **API surface**: Next.js Route Handlers (Node runtime); background jobs via server actions or queue workers (see below)
+- **API surface**: Express (Node runtime); background jobs via queue workers or server actions (see below)
 - **Transport styles**: HTTP/REST with OpenAPI; Server-Sent Events for push
 - **Contracts**: OpenAPI 3.1 single source of truth in `packages/contracts`
   - Authoring/generation: `openapi-typescript` (client types), `zod-openapi` or `zod-to-openapi` for schema from Zod where helpful
   - Request/response validation: Zod on server boundaries
+- **API docs & manual testing**: Swagger UI served from Express using the OpenAPI spec
 - **Server utilities**: `zod`, `@hapi/boom` (HTTP errors), `@sentry/node` (observability)
 - **Authentication**: Auth.js (NextAuth) with JWT/session strategy; `@auth/core` adapters as needed
 - **Authorization**: `@casl/ability` (policy-driven access control)
@@ -47,7 +48,7 @@ This document defines the concrete technologies chosen for our monorepo. The con
 - **React components**: @testing-library/react + @testing-library/jest-dom
 - **Network mocking**: MSW (node and browser)
 - **E2E**: Playwright (headed/headless, trace on failures)
-- **API integration**: supertest (for Route Handlers) and/or fetch + testcontainers when spinning up Postgres/Redis for real
+- **API integration**: supertest (Express routes) and/or fetch + testcontainers when spinning up Postgres/Redis for real
 - **Accessibility checks**: axe-core via jest-axe in component tests; Playwright a11y scans on key routes
 
 ## Tooling & Productivity

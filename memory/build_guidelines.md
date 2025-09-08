@@ -1,6 +1,6 @@
 ### Build and Test Command Guide (Robust, Monorepo-Aware)
 
-These commands are designed for pnpm workspaces with `apps/*` and `packages/*`. They resolve paths from any working directory by using repository-root discovery and explicit `--filter` flags.
+These commands are designed for pnpm workspaces with `apps/*` and `packages/*`. They resolve paths from any working directory by using repository-root discovery and explicit `--filter` flags. Use pnpm over npm if there are any commands that need to be run not listed.
 
 ## Assumptions
 - Node.js LTS installed; pnpm installed globally

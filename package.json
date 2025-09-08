@@ -1,0 +1,18 @@
+{
+  "name": "specify-test1",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "pnpm -r --filter=./apps/* --parallel run dev",
+    "build": "pnpm -r --filter=./apps/* run build",
+    "start": "pnpm -r --filter=./apps/* --parallel run start",
+    "up": "pnpm run build && pnpm run start"
+  }
+}
+
+
